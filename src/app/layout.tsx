@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import emissions from "../../public/emissions.png";
-import Image from "next/image";
+import { Inter } from 'next/font/google';
+import type { Metadata } from 'next';
+import './globals.css';
+import Image from 'next/image';
+import emissions from '../../public/emissions.png';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "UI for Emissions API",
-  description: "Built using Next.js, TypeScript and React",
+  title: 'UI for Emissions API',
+  description: 'Built using Next.js, TypeScript and React',
 };
 
 export default function RootLayout({

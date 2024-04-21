@@ -1,4 +1,4 @@
-UI for the emissions data from the European Space Agency’s Sentinel-5P earth observation satellite built with Next.js, React, TypeScript.
+UI for the emissions data from the European Space Agency’s Sentinel-5P earth observation satellite built with Next.js, React, and TypeScript.
 
 ## Getting Started
 
