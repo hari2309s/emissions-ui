@@ -85,14 +85,20 @@ body {
   overflow-x: hidden;
 }
 
+header {
+  text-align: center;
+  margin-top: 15px;
+}
+
+footer {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: white;
+  background: #353535;
+  min-height: 100vh;
 }
 
 a {

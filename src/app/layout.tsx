@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import emissions from "../../public/emissions.png";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '15px' }}>
+          <Image src={emissions} width={50} height={50} alt="Emissions" style={{ justifyContent: 'center' }} />
+        </div>
+        {children}
+        <footer>Made in Germany 🥨</footer>
+      </body>
     </html>
   );
 }
