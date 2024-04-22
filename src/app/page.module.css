@@ -20,16 +20,17 @@
   background-color: #9f86c0;
   border-radius: 5px;
   margin: 5px;
-  height: 150px;
+  height: 200px;
 }
 
-.card::first-letter {
+.card span::first-letter {
   text-transform: capitalize;
 }
 
 .card span {
   display: inline-block;
   transition: transform 200ms;
+  margin-bottom: 10px;
 }
 
 .card h2 {

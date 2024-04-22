@@ -1,7 +1,33 @@
-.country {
+.select {
   height: 40px;
   border: none;
   text-align: center;
   border-radius: 5px;
   width: 200px;
+  margin: 0 10px;
+}
+
+.date {
+  height: 40px;
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  width: 200px;
+  margin: 0 10px;
+}
+
+.show {
+  background-color: #9f86c0;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  height: 40px;
+  width: 100px;
+  color: white;
+}
+
+.show:hover {
+  background-color: #cfc3e0;
+  cursor: pointer;
+  color: #30283a;
 }
