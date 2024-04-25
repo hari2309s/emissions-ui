@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Image from 'next/image';
 import emissions from '../../public/emissions.png';
+import { NavLinks } from './components/nav-links/nav-links';
 import AppProvider from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -30,6 +31,7 @@ export default function RootLayout({
           />
           <h2>Emissions UI</h2>
           <h3>Easy access to satellite-based emission data for everyone</h3>
+          <NavLinks />
         </div>
         <AppProvider>{children}</AppProvider>
         <footer>Made in Germany 🥨</footer>
