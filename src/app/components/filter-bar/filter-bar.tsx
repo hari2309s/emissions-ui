@@ -1,22 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { ICountry, IProduct } from '../types';
+import { getAverage } from '../../actions';
+import { Filter, ICountry, IProduct } from '../../types';
 import styles from './filter-bar.module.css';
 
 interface FilterBarProps {
   countries: ICountry;
   products: IProduct[];
 }
-
-interface Filter {
-  country: string;
-  product: string;
-  fromDate: string;
-  toDate: string;
-}
-
-const AVERAGE_API_URL = 'https://api.v2.emissions-api.org/api/v2';
 
 export const FilterBar = ({ countries, products }: FilterBarProps) => {
   const [filter, setFilter] = useState<Filter>({
@@ -45,15 +37,7 @@ export const FilterBar = ({ countries, products }: FilterBarProps) => {
   const onToDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   const handleClick = async () => {
-    const res = await fetch(
-      `${AVERAGE_API_URL}/${filter.product}/average.json?country=${filter.country}&begin=${filter.fromDate}&end=${filter.toDate}`
-    );
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch average data!');
-    }
-
-    return res.json();
+    await getAverage(filter);
   };
 
   return (

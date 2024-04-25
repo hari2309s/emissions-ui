@@ -1,0 +1,14 @@
+.links {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.links > a {
+  margin: 10px;
+  border-bottom: solid 2px #9f86c0;
+}
+
+.links > a:hover {
+  border-bottom: solid 2px #cfc3e0;
+  color: white;
+}
