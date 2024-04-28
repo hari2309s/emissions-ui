@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAverage } from '../../actions';
 import { Filter, ICountry, IProduct } from '../../types';
 import styles from './filter-bar.module.css';
@@ -10,13 +10,24 @@ interface FilterBarProps {
   products: IProduct[];
 }
 
+const initialFilterState = {
+  country: 'DE',
+  product: 'methane',
+  fromDate: '2019-02-01',
+  toDate: '2019-03-01',
+};
+
 export const FilterBar = ({ countries, products }: FilterBarProps) => {
-  const [filter, setFilter] = useState<Filter>({
-    country: 'DE',
-    product: 'methane',
-    fromDate: '2019-02-01',
-    toDate: '2019-03-01',
-  });
+  const [filter, setFilter] = useState<Filter>(initialFilterState);
+
+  useEffect(() => {
+    if (Object.entries(countries).length) {
+      setFilter((filter) => ({
+        ...filter,
+        country: 'DE',
+      }));
+    }
+  }, [countries]);
 
   const onCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter((filter) => ({
@@ -37,18 +48,13 @@ export const FilterBar = ({ countries, products }: FilterBarProps) => {
   const onToDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   const handleClick = async () => {
-    await getAverage(filter);
+    const average = await getAverage(filter ?? initialFilterState);
+    console.log('avg -> ', average);
   };
 
   return (
     <div>
-      <select
-        name="country-select"
-        id="country-select"
-        defaultValue="DE"
-        onChange={onCountryChange}
-        className={styles.select}
-      >
+      <select name="country" id="country-select" defaultValue="DE" onChange={onCountryChange} className={styles.select}>
         {Object.entries(countries).map((country: any) => (
           <option key={country[0]} value={country[0]}>
             {country[1]}
@@ -56,7 +62,7 @@ export const FilterBar = ({ countries, products }: FilterBarProps) => {
         ))}
       </select>
       <select
-        name="product-select"
+        name="product"
         id="product-select"
         defaultValue="methane"
         onChange={onProductChange}
