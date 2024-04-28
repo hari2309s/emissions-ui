@@ -5,7 +5,7 @@ import { getCountries, getEmissionsProducts } from '../actions';
 import { BarChart } from '../components/bar-chart/bar-chart';
 import { FilterBar } from '../components/filter-bar/filter-bar';
 import { AppContext } from '../providers';
-import { IAverage, ICountry, IProduct } from '../types';
+import { IAverage } from '../types';
 import styles from './page.module.css';
 
 export default function More() {
@@ -26,7 +26,7 @@ export default function More() {
 
   return (
     <div className={styles.container}>
-      <FilterBar countries={countries} products={products} />
+      <FilterBar countries={countries} products={products} setAverage={setAverage} />
       <BarChart average={average} />
     </div>
   );

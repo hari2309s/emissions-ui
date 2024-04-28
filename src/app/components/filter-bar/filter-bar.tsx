@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { getAverage } from '../../actions';
-import { Filter, ICountry, IProduct } from '../../types';
+import { Filter, IAverage, ICountry, IProduct } from '../../types';
 import styles from './filter-bar.module.css';
 
 interface FilterBarProps {
   countries: ICountry;
   products: IProduct[];
+  setAverage: Dispatch<SetStateAction<IAverage[]>>;
 }
 
 const initialFilterState = {
@@ -17,7 +18,7 @@ const initialFilterState = {
   toDate: '2019-03-01',
 };
 
-export const FilterBar = ({ countries, products }: FilterBarProps) => {
+export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) => {
   const [filter, setFilter] = useState<Filter>(initialFilterState);
 
   useEffect(() => {
@@ -49,12 +50,18 @@ export const FilterBar = ({ countries, products }: FilterBarProps) => {
 
   const handleClick = async () => {
     const average = await getAverage(filter ?? initialFilterState);
-    console.log('avg -> ', average);
+    setAverage(average);
   };
 
   return (
     <div>
-      <select name="country" id="country-select" defaultValue="DE" onChange={onCountryChange} className={styles.select}>
+      <select
+        name="country"
+        id="country-select"
+        value={filter.country}
+        onChange={onCountryChange}
+        className={styles.select}
+      >
         {Object.entries(countries).map((country: any) => (
           <option key={country[0]} value={country[0]}>
             {country[1]}
@@ -64,7 +71,7 @@ export const FilterBar = ({ countries, products }: FilterBarProps) => {
       <select
         name="product"
         id="product-select"
-        defaultValue="methane"
+        value={filter.product}
         onChange={onProductChange}
         className={styles.select}
       >
