@@ -14,3 +14,9 @@ export interface Filter {
   fromDate: string;
   toDate: string;
 }
+
+export interface IAverage {
+  average: number;
+  end: string;
+  start: string;
+}

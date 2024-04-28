@@ -1,9 +1,20 @@
+'use client';
+
+import { useContext, useEffect } from 'react';
 import { getEmissionsProducts } from '../actions';
+import { AppContext } from '../providers';
 import { IProduct } from '../types';
 import styles from './page.module.css';
 
-export default async function Products() {
-  const products: IProduct[] = await getEmissionsProducts();
+export default function Products() {
+  const { products, setProducts } = useContext(AppContext);
+
+  useEffect(() => {
+    (async function () {
+      const products = await getEmissionsProducts();
+      setProducts?.(products);
+    })();
+  }, [setProducts]);
 
   return (
     <div className={styles.grid}>
