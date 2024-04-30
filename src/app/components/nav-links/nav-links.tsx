@@ -8,7 +8,7 @@ export function NavLinks() {
     <div className={styles.links}>
       <Link href="/">Home</Link>
       <Link href="/products">Products</Link>
-      <Link href="/more">More</Link>
+      <Link href="/chart">Chart</Link>
     </div>
   );
 }

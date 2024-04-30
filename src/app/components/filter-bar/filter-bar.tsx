@@ -1,26 +1,20 @@
 'use client';
 
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import { DEFAULT_COUNTRY, DEFAULT_COUNTRY_CODE, DEFAULT_PRODUCT } from '@/app/constants';
 import { AppContext } from '@/app/providers';
 import { getAverage } from '../../actions';
 import { Filter, IAverage, ICountry, IProduct } from '../../types';
 import styles from './filter-bar.module.css';
-import { DEFAULT_COUNTRY } from '@/app/constants';
 
 interface FilterBarProps {
   countries: ICountry;
   products: IProduct[];
+  initialFilterState: Filter;
   setAverage: Dispatch<SetStateAction<IAverage[]>>;
 }
 
-const initialFilterState = {
-  country: 'DE',
-  product: 'methane',
-  fromDate: '2019-02-01',
-  toDate: '2019-03-01',
-};
-
-export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) => {
+export const FilterBar = ({ countries, products, initialFilterState, setAverage }: FilterBarProps) => {
   const [filterObj, setFilterObj] = useState<Filter>(initialFilterState);
 
   const { setFilter } = useContext(AppContext);
@@ -29,7 +23,7 @@ export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) =
     if (Object.entries(countries).length) {
       setFilterObj((filterObj) => ({
         ...filterObj,
-        country: 'DE',
+        country: DEFAULT_COUNTRY_CODE,
       }));
     }
   }, [countries]);
@@ -51,15 +45,15 @@ export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) =
   const onFromDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilterObj((filterObj) => ({
       ...filterObj,
-      fromDate: e.target.value
-    }))
+      fromDate: e.target.value,
+    }));
   };
 
   const onToDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilterObj((filterObj) => ({
       ...filterObj,
-      toDate: e.target.value
-    }))
+      toDate: e.target.value,
+    }));
   };
 
   const handleClick = async () => {

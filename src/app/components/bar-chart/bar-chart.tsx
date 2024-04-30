@@ -56,9 +56,9 @@ export const BarChart = ({ average }: BarChartProps) => {
 
   useEffect(() => {
     if (filter?.country) {
-      setLabel(filter?.country)
+      setLabel(filter?.country);
     }
-  }, [filter])
+  }, [filter]);
 
   return <Bar data={data} options={options} className={styles.chart} />;
 };
