@@ -60,5 +60,9 @@ export const BarChart = ({ average }: BarChartProps) => {
     }
   }, [filter]);
 
-  return <Bar data={data} options={options} className={styles.chart} />;
+  return (
+    <div className={styles.chart}>
+      <Bar data={data} options={options} />
+    </div>
+  );
 };

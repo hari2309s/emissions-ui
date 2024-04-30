@@ -28,6 +28,15 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
     }
   }, [countries]);
 
+  useEffect(() => {
+    if (initialFilterState) {
+      (async function () {
+        const average = await getAverage(initialFilterState);
+        setAverage(average);
+      })();
+    }
+  });
+
   const onCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterObj((filterObj) => ({
       ...filterObj,

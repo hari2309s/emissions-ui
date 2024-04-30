@@ -42,7 +42,8 @@ export default function More() {
         }}
         setAverage={setAverage}
       />
-      {average && <BarChart average={average} />}
+
+      <BarChart average={average} />
     </div>
   );
 }
