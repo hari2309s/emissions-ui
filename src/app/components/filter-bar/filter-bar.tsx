@@ -1,9 +1,11 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import { AppContext } from '@/app/providers';
 import { getAverage } from '../../actions';
 import { Filter, IAverage, ICountry, IProduct } from '../../types';
 import styles from './filter-bar.module.css';
+import { DEFAULT_COUNTRY } from '@/app/constants';
 
 interface FilterBarProps {
   countries: ICountry;
@@ -19,38 +21,55 @@ const initialFilterState = {
 };
 
 export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) => {
-  const [filter, setFilter] = useState<Filter>(initialFilterState);
+  const [filterObj, setFilterObj] = useState<Filter>(initialFilterState);
+
+  const { setFilter } = useContext(AppContext);
 
   useEffect(() => {
     if (Object.entries(countries).length) {
-      setFilter((filter) => ({
-        ...filter,
+      setFilterObj((filterObj) => ({
+        ...filterObj,
         country: 'DE',
       }));
     }
   }, [countries]);
 
   const onCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilter((filter) => ({
-      ...filter,
+    setFilterObj((filterObj) => ({
+      ...filterObj,
       country: e.target.value,
     }));
   };
 
   const onProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilter((filter) => ({
-      ...filter,
+    setFilterObj((filterObj) => ({
+      ...filterObj,
       product: e.target.value,
     }));
   };
 
-  const onFromDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const onFromDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterObj((filterObj) => ({
+      ...filterObj,
+      fromDate: e.target.value
+    }))
+  };
 
-  const onToDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const onToDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterObj((filterObj) => ({
+      ...filterObj,
+      toDate: e.target.value
+    }))
+  };
 
   const handleClick = async () => {
-    const average = await getAverage(filter ?? initialFilterState);
+    const average = await getAverage(filterObj ?? initialFilterState);
     setAverage(average);
+
+    setFilter?.((filter) => ({
+      ...filter,
+      country: Object.entries(countries).find((country) => country[0] === filterObj?.country)?.[1] || DEFAULT_COUNTRY,
+    }));
   };
 
   return (
@@ -58,7 +77,7 @@ export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) =
       <select
         name="country"
         id="country-select"
-        value={filter.country}
+        value={filterObj.country}
         onChange={onCountryChange}
         className={styles.select}
       >
@@ -71,7 +90,7 @@ export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) =
       <select
         name="product"
         id="product-select"
-        value={filter.product}
+        value={filterObj.product}
         onChange={onProductChange}
         className={styles.select}
       >
@@ -81,8 +100,14 @@ export const FilterBar = ({ countries, products, setAverage }: FilterBarProps) =
           </option>
         ))}
       </select>
-      <input type="date" name="fromDate" className={styles.date} value={filter?.fromDate} onChange={onFromDateChange} />
-      <input type="date" name="toDate" className={styles.date} value={filter?.toDate} onChange={onToDateChange} />
+      <input
+        type="date"
+        name="fromDate"
+        className={styles.date}
+        value={filterObj?.fromDate}
+        onChange={onFromDateChange}
+      />
+      <input type="date" name="toDate" className={styles.date} value={filterObj?.toDate} onChange={onToDateChange} />
 
       <button onClick={handleClick} className={styles.show}>
         Show me

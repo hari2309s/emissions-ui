@@ -1,8 +1,14 @@
-import { ArcElement, BarElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import { IAverage } from '@/app/types';
+'use client';
 
-ChartJS.register(ArcElement, Tooltip, Legend, BarElement);
+import { Chart as ChartJS, registerables } from 'chart.js';
+import { useContext, useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { DEFAULT_COUNTRY, DEFAULT_PRODUCT } from '@/app/constants';
+import { AppContext } from '@/app/providers';
+import { IAverage } from '@/app/types';
+import styles from './bar-chart.module.css';
+
+ChartJS.register(...registerables);
 
 interface BarChartProps {
   average: IAverage[];
@@ -12,43 +18,47 @@ export const BarChart = ({ average }: BarChartProps) => {
   let values = average.map((item) => item.average);
   let labels = average.map((item) => item.start.substring(8, 10));
 
+  const { filter } = useContext(AppContext);
+
+  const [label, setLabel] = useState<string>(DEFAULT_COUNTRY);
+
   const options = {
     responsive: true,
     scales: {
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: 'methane',
-          },
-          ticks: {
-            beginAtZero: true,
-          },
+      yAxis: {
+        scaleLabel: {
+          display: true,
+          labelString: DEFAULT_PRODUCT,
         },
-      ],
-      xAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: 'day',
-          },
+        ticks: {
+          beginAtZero: true,
         },
-      ],
+      },
+      xAxis: {
+        scaleLabel: {
+          display: true,
+          labelString: 'day',
+        },
+      },
     },
   };
 
   const data = {
-    // use start times contained in the requested data as labels
     labels: labels,
     datasets: [
       {
-        label: 'Germany',
+        label: label,
         backgroundColor: '#93bd20',
-        // use the average values as data
         data: values,
       },
     ],
   };
 
-  return <Bar data={data} />;
+  useEffect(() => {
+    if (filter?.country) {
+      setLabel(filter?.country)
+    }
+  }, [filter])
+
+  return <Bar data={data} options={options} className={styles.chart} />;
 };
