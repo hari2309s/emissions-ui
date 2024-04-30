@@ -5,11 +5,12 @@ import { getCountries, getEmissionsProducts } from '../actions';
 import { BarChart } from '../components/bar-chart/bar-chart';
 import { FilterBar } from '../components/filter-bar/filter-bar';
 import { DEFAULT_COUNTRY_CODE, DEFAULT_PRODUCT } from '../constants';
+import { capitalizeFirstLetter, sanitizeCountries } from '../helper';
 import { AppContext } from '../providers';
 import { IAverage } from '../types';
 import styles from './page.module.css';
 
-export default function More() {
+export default function Chart() {
   const { products, setProducts, countries, setCountries } = useContext(AppContext);
   const [average, setAverage] = useState<IAverage[]>([]);
 
@@ -17,14 +18,14 @@ export default function More() {
     if (Object.entries(countries).length === 0) {
       (async function () {
         const countries = await getCountries();
-        setCountries?.(countries);
+        setCountries?.(sanitizeCountries(countries));
       })();
     }
 
     if (products.length === 0) {
       (async function () {
         const products = await getEmissionsProducts();
-        setProducts?.(products);
+        setProducts?.(capitalizeFirstLetter(products));
       })();
     }
   }, [countries, setCountries, products, setProducts]);

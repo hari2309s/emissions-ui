@@ -18,7 +18,7 @@ export const BarChart = ({ average }: BarChartProps) => {
   let values = average.map((item) => item.average);
   let labels = average.map((item) => item.start.substring(8, 10));
 
-  const { filter } = useContext(AppContext);
+  const { filter, countries } = useContext(AppContext);
 
   const [label, setLabel] = useState<string>(DEFAULT_COUNTRY);
 
@@ -56,9 +56,9 @@ export const BarChart = ({ average }: BarChartProps) => {
 
   useEffect(() => {
     if (filter?.country) {
-      setLabel(filter?.country);
+      setLabel(countries.find((country) => country.code === filter?.country)?.label || DEFAULT_COUNTRY);
     }
-  }, [filter]);
+  }, [filter, countries]);
 
   return (
     <div className={styles.chart}>

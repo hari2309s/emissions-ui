@@ -1,9 +1,9 @@
 'use server';
 
 import { AVERAGE_API_URL, AVERAGE_GEO_DATA_API_URL, COUNTRIES_API_URL, PRODUCTS_API_URL } from './constants';
-import { Filter } from './types';
+import { Filter, IAverage, ICountry, IProduct } from './types';
 
-export async function getEmissionsProducts() {
+export async function getEmissionsProducts(): Promise<IProduct[]> {
   const res = await fetch(PRODUCTS_API_URL);
 
   if (!res.ok) {
@@ -13,7 +13,7 @@ export async function getEmissionsProducts() {
   return res.json();
 }
 
-export async function getCountries() {
+export async function getCountries(): Promise<ICountry> {
   const res = await fetch(COUNTRIES_API_URL);
 
   if (!res.ok) {
@@ -23,7 +23,7 @@ export async function getCountries() {
   return res.json();
 }
 
-export async function getAverage(filter: Filter) {
+export async function getAverage(filter: Filter): Promise<IAverage[]> {
   const res = await fetch(
     `${AVERAGE_API_URL}/${filter.product}/average.json?country=${filter.country}&begin=${filter.fromDate}&end=${filter.toDate}`
   );

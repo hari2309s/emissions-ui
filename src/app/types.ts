@@ -8,6 +8,11 @@ export interface ICountry {
   [key: string]: string;
 }
 
+export interface Country {
+  code: string;
+  label: string;
+}
+
 export interface Filter {
   country: string;
   product: string;

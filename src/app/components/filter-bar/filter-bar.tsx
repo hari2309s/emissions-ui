@@ -1,14 +1,14 @@
 'use client';
 
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
-import { DEFAULT_COUNTRY, DEFAULT_COUNTRY_CODE, DEFAULT_PRODUCT } from '@/app/constants';
+import { DEFAULT_COUNTRY_CODE } from '@/app/constants';
 import { AppContext } from '@/app/providers';
 import { getAverage } from '../../actions';
-import { Filter, IAverage, ICountry, IProduct } from '../../types';
+import { Country, Filter, IAverage, IProduct } from '../../types';
 import styles from './filter-bar.module.css';
 
 interface FilterBarProps {
-  countries: ICountry;
+  countries: Country[];
   products: IProduct[];
   initialFilterState: Filter;
   setAverage: Dispatch<SetStateAction<IAverage[]>>;
@@ -17,10 +17,10 @@ interface FilterBarProps {
 export const FilterBar = ({ countries, products, initialFilterState, setAverage }: FilterBarProps) => {
   const [filterObj, setFilterObj] = useState<Filter>(initialFilterState);
 
-  const { setFilter } = useContext(AppContext);
+  const { setFilter, average } = useContext(AppContext);
 
   useEffect(() => {
-    if (Object.entries(countries).length) {
+    if (countries.length > 0) {
       setFilterObj((filterObj) => ({
         ...filterObj,
         country: DEFAULT_COUNTRY_CODE,
@@ -29,13 +29,13 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
   }, [countries]);
 
   useEffect(() => {
-    if (initialFilterState) {
+    if (initialFilterState && average.length === 0) {
       (async function () {
-        const average = await getAverage(initialFilterState);
-        setAverage(average);
+        const response = await getAverage(initialFilterState);
+        setAverage(response);
       })();
     }
-  });
+  }, []);
 
   const onCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterObj((filterObj) => ({
@@ -47,7 +47,7 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
   const onProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterObj((filterObj) => ({
       ...filterObj,
-      product: e.target.value,
+      product: e.target.value.toLowerCase(),
     }));
   };
 
@@ -66,12 +66,12 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
   };
 
   const handleClick = async () => {
-    const average = await getAverage(filterObj ?? initialFilterState);
-    setAverage(average);
+    const response = await getAverage(filterObj ?? initialFilterState);
+    setAverage(response);
 
     setFilter?.((filter) => ({
       ...filter,
-      country: Object.entries(countries).find((country) => country[0] === filterObj?.country)?.[1] || DEFAULT_COUNTRY,
+      country: countries.find((country) => country.code === filterObj?.country)?.code || DEFAULT_COUNTRY_CODE,
     }));
   };
 
@@ -84,9 +84,9 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
         onChange={onCountryChange}
         className={styles.select}
       >
-        {Object.entries(countries).map((country: any) => (
-          <option key={country[0]} value={country[0]}>
-            {country[1]}
+        {countries.map((country: Country) => (
+          <option key={country.code} value={country.code}>
+            {country.label}
           </option>
         ))}
       </select>
@@ -98,7 +98,7 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
         className={styles.select}
       >
         {products.map((product: IProduct) => (
-          <option key={product.name} value={product.name} style={{}}>
+          <option key={product.name} value={product.name.toLowerCase()}>
             {product.name}
           </option>
         ))}
