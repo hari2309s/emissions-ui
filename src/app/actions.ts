@@ -1,5 +1,3 @@
-'use server';
-
 import { AVERAGE_API_URL, AVERAGE_GEO_DATA_API_URL, COUNTRIES_API_URL, PRODUCTS_API_URL } from './constants';
 import { Filter, IAverage, ICountry, IProduct } from './types';
 
