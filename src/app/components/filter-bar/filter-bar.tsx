@@ -35,6 +35,7 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
         setAverage(response);
       })();
     }
+    /* eslint-disable-next-line */
   }, []);
 
   const onCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
