@@ -4,6 +4,7 @@ import { Chart as ChartJS, registerables } from 'chart.js';
 import { useContext, useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { DEFAULT_COUNTRY, DEFAULT_PRODUCT } from '@/app/constants';
+import { capitalizeFirstLetter } from '@/app/helper';
 import { AppContext } from '@/app/providers';
 import { IAverage } from '@/app/types';
 import styles from './bar-chart.module.css';
@@ -21,7 +22,7 @@ export const BarChart = ({ average }: BarChartProps) => {
   const { filter, countries } = useContext(AppContext);
 
   const [countryLabel, setCountryLabel] = useState<string>(DEFAULT_COUNTRY);
-  const [productText, setProductLabel] = useState<string>(DEFAULT_PRODUCT);
+  const [productText, setProductLabel] = useState<string>(capitalizeFirstLetter(DEFAULT_PRODUCT));
 
   const options = {
     responsive: true,
