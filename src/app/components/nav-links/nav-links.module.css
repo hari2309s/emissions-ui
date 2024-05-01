@@ -5,11 +5,11 @@
 
 .links > a {
   margin: 10px;
-  border-bottom: solid 2px #9f86c0;
+  border-bottom: solid 2px #dde5b6;
   font-size: 20px;
 }
 
 .links > a:hover {
-  border-bottom: solid 2px #cfc3e0;
+  border-bottom: solid 2px #eef2db;
   color: white;
 }

@@ -17,17 +17,17 @@
 }
 
 .show {
-  background-color: #9f86c0;
+  background-color: #dde5b6;
   border: none;
   border-radius: 5px;
   margin: 5px;
   height: 40px;
   width: 100px;
-  color: white;
+  color: #353535;
 }
 
 .show:hover {
-  background-color: #cfc3e0;
+  background-color: #eef2db;
   cursor: pointer;
   color: #30283a;
 }

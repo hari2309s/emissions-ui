@@ -20,7 +20,8 @@ export const BarChart = ({ average }: BarChartProps) => {
 
   const { filter, countries } = useContext(AppContext);
 
-  const [label, setLabel] = useState<string>(DEFAULT_COUNTRY);
+  const [countryLabel, setCountryLabel] = useState<string>(DEFAULT_COUNTRY);
+  const [productText, setProductLabel] = useState<string>(DEFAULT_PRODUCT);
 
   const options = {
     responsive: true,
@@ -29,7 +30,7 @@ export const BarChart = ({ average }: BarChartProps) => {
         display: true,
         title: {
           display: true,
-          text: DEFAULT_PRODUCT,
+          text: productText,
         },
         ticks: {
           major: {
@@ -51,8 +52,8 @@ export const BarChart = ({ average }: BarChartProps) => {
     labels: labels,
     datasets: [
       {
-        label: label,
-        backgroundColor: '#9f86c0',
+        label: countryLabel,
+        backgroundColor: '#dde5b6',
         data: values,
       },
     ],
@@ -60,7 +61,11 @@ export const BarChart = ({ average }: BarChartProps) => {
 
   useEffect(() => {
     if (filter?.country) {
-      setLabel(countries.find((country) => country.code === filter?.country)?.label || DEFAULT_COUNTRY);
+      setCountryLabel(countries.find((country) => country.code === filter?.country)?.label || DEFAULT_COUNTRY);
+    }
+
+    if (filter?.product) {
+      setProductLabel(filter.product);
     }
   }, [filter, countries]);
 

@@ -10,11 +10,12 @@
   flex-direction: column;
   text-align: center;
   padding: 1rem 1.2rem;
-  background-color: #9f86c0;
+  background-color: #dde5b6;
   border-radius: 5px;
   margin: 25px;
   height: 350px;
   width: 70vw;
+  color: #30283a;
 }
 
 .card br {

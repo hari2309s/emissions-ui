@@ -10,10 +10,11 @@
   flex-direction: column;
   position: relative;
   padding: 1rem 1.2rem;
-  background-color: #9f86c0;
+  background-color: #dde5b6;
   border-radius: 5px;
   margin: 5px;
   height: 200px;
+  color: #30283a;
 }
 
 .card span::first-letter {
@@ -54,7 +55,7 @@
   .card:hover {
     /* background: rgba(var(--card-rgb), 0.1);
     border: 1px solid rgba(var(--card-border-rgb), 0.15); */
-    background-color: #cfc3e0;
+    background-color: #ebefd3;
     color: #30283a;
   }
 
