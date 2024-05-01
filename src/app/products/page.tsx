@@ -2,7 +2,7 @@
 
 import { useContext, useEffect } from 'react';
 import { getEmissionsProducts } from '../actions';
-import { capitalizeFirstLetter } from '../helper';
+import { capitalizeFirstLetterProducts } from '../helper';
 import { AppContext } from '../providers';
 import { IProduct } from '../types';
 import styles from './page.module.css';
@@ -13,7 +13,7 @@ export default function Products() {
   useEffect(() => {
     (async function () {
       const products = await getEmissionsProducts();
-      setProducts?.(capitalizeFirstLetter(products));
+      setProducts?.(capitalizeFirstLetterProducts(products));
     })();
   }, [setProducts]);
 

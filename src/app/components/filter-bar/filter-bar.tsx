@@ -74,7 +74,7 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
     setFilter?.((filter) => ({
       ...filter,
       country: countries.find((country) => country.code === filterObj?.country)?.code || DEFAULT_COUNTRY_CODE,
-      product: capitalizeFirstLetter([filterObj.product])[0] || DEFAULT_PRODUCT,
+      product: capitalizeFirstLetter(filterObj.product) || DEFAULT_PRODUCT,
     }));
   };
 

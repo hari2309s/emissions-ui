@@ -1,7 +1,11 @@
 import { Country, ICountry } from './types';
 
-export const capitalizeFirstLetter = (items: any[]): any[] => {
+export const capitalizeFirstLetterProducts = (items: any[]): any[] => {
   return items.map((item) => ({ ...item, name: item.name.charAt(0).toUpperCase() + item.name.slice(1) }));
+};
+
+export const capitalizeFirstLetter = (item: string): string => {
+  return item.charAt(0).toUpperCase() + item.slice(1);
 };
 
 export const sanitizeCountries = (countries: ICountry): Country[] => {

@@ -5,7 +5,7 @@ import { getCountries, getEmissionsProducts } from '../actions';
 import { BarChart } from '../components/bar-chart/bar-chart';
 import { FilterBar } from '../components/filter-bar/filter-bar';
 import { DEFAULT_COUNTRY_CODE, DEFAULT_PRODUCT } from '../constants';
-import { capitalizeFirstLetter, sanitizeCountries } from '../helper';
+import { capitalizeFirstLetterProducts, sanitizeCountries } from '../helper';
 import { AppContext } from '../providers';
 import { IAverage } from '../types';
 import styles from './page.module.css';
@@ -25,7 +25,7 @@ export default function Chart() {
     if (products.length === 0) {
       (async function () {
         const products = await getEmissionsProducts();
-        setProducts?.(capitalizeFirstLetter(products));
+        setProducts?.(capitalizeFirstLetterProducts(products));
       })();
     }
   }, [countries, setCountries, products, setProducts]);
