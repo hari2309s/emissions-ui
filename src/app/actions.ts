@@ -46,3 +46,5 @@ export async function getAverageGeoData(filter: Filter) {
 
   return res.json();
 }
+
+export const dynamic = 'force-dynamic';

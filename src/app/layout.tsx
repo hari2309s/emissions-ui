@@ -9,7 +9,7 @@ import AppProvider from './providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'UI for Emissions API',
+  title: 'Emissions UI',
   description: 'Built using Next.js, TypeScript and React',
 };
 

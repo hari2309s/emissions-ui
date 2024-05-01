@@ -48,3 +48,5 @@ export default function Chart() {
     </div>
   );
 }
+
+export const dynamic = 'force-dynamic';
