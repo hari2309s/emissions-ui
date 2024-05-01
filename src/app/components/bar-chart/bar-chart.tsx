@@ -25,19 +25,23 @@ export const BarChart = ({ average }: BarChartProps) => {
   const options = {
     responsive: true,
     scales: {
-      yAxis: {
-        scaleLabel: {
+      y: {
+        display: true,
+        title: {
           display: true,
-          labelString: DEFAULT_PRODUCT,
+          text: DEFAULT_PRODUCT,
         },
         ticks: {
-          beginAtZero: true,
+          major: {
+            enabled: true,
+          },
         },
       },
-      xAxis: {
-        scaleLabel: {
+      x: {
+        display: true,
+        title: {
           display: true,
-          labelString: 'day',
+          text: 'day',
         },
       },
     },
