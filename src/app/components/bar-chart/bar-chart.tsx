@@ -48,7 +48,7 @@ export const BarChart = ({ average }: BarChartProps) => {
     datasets: [
       {
         label: label,
-        backgroundColor: '#93bd20',
+        backgroundColor: '#9f86c0',
         data: values,
       },
     ],
