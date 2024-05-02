@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write"
+    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "chart.js": "^4.4.2",
@@ -22,6 +23,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cypress": "^13.8.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "typescript": "^5"
