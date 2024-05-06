@@ -25,4 +25,23 @@ describe('Navigation', () => {
     cy.get('a[href*="chart"]').click();
     cy.url().should('include', '/chart');
   });
+
+  it('should open Emission API from home page ', () => {
+    cy.visit('http://localhost:3000/');
+
+    cy.get('a[href*="emissions-api"').invoke('removeAttr', 'target').click();
+
+    cy.origin('https://emissions-api.org', () => {
+      cy.on('uncaught:exception', (e) => {
+        if (e.message.includes('Things went bad')) {
+          // we expected this error, so let's ignore it
+          // and let the test continue
+          return false;
+        }
+      });
+    });
+    cy.origin('https://www.emissions-api.org', () => {
+      cy.url().contains('emissoins-api');
+    });
+  });
 });
