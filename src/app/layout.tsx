@@ -34,7 +34,6 @@ export default function RootLayout({
           <NavLinks />
         </div>
         <AppProvider>{children}</AppProvider>
-        <footer>{`Footer <3`}</footer>
       </body>
     </html>
   );
