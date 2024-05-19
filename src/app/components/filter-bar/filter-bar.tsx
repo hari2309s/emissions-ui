@@ -79,7 +79,7 @@ export const FilterBar = ({ countries, products, initialFilterState, setAverage 
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <select
         name="country"
         id="country-select"

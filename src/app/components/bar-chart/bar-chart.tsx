@@ -26,6 +26,7 @@ export const BarChart = ({ average }: BarChartProps) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         display: true,

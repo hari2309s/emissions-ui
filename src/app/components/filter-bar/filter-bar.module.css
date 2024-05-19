@@ -31,3 +31,18 @@
   cursor: pointer;
   color: #30283a;
 }
+
+/* Mobile */
+@media (max-width: 700px) {
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .container > * {
+    margin: 10px 0;
+  }
+}
