@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 58vh;
 }
 
 .card {
@@ -16,6 +15,7 @@
   height: 350px;
   width: 70vw;
   color: #30283a;
+  overflow-x: scroll;
 }
 
 .card br {
